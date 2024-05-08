@@ -55,7 +55,11 @@ public class CaesarCipher {
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
         }
-        return secureRandom.nextInt(26);
+        // int keyLength = secureRandom.nextInt(length);
+        // if (keyLength == 0) {
+        //     keyLength = 1;
+        // }
+        return secureRandom.nextInt(26 + 1);
     }
 
     public String encrypt(String plainText, int key) {
