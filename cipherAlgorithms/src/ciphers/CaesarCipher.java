@@ -1,52 +1,9 @@
 package ciphers;
-
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
-import java.util.HashMap;
 
 public class CaesarCipher {
     private final static String NAME = "Caesar Cipher";
-    private HashMap<Character, Integer> charMap;
-    private final static char encryptionArr[] = { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N',
-            'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z' };
-
-    // public CaesarCipher(){
-	// 	charMap =  new HashMap<Character, Integer>();
-	// 	charMap.put('A', 0);
-	// 	charMap.put('B', 1);
-	// 	charMap.put('C', 2);
-	// 	charMap.put('D', 3);
-	// 	charMap.put('E', 4);
-	// 	charMap.put('F', 5);
-	// 	charMap.put('G', 6);
-	// 	charMap.put('H', 7);
-	// 	charMap.put('I', 8);
-	// 	charMap.put('J', 9);
-	// 	charMap.put('K', 10);
-	// 	charMap.put('L', 11);
-	// 	charMap.put('M', 12);
-	// 	charMap.put('N', 13);
-	// 	charMap.put('O', 14);
-	// 	charMap.put('P', 15);
-	// 	charMap.put('Q', 16);
-    //     charMap.put('R', 17);
-    //     charMap.put('S', 18);
-    //     charMap.put('T', 19);
-    //     charMap.put('U', 20);
-    //     charMap.put('V', 21);
-    //     charMap.put('W', 22);
-    //     charMap.put('X', 23);
-    //     charMap.put('Y', 24);
-    //     charMap.put('Z', 25);
-    // }
-
-    public CaesarCipher() {
-        charMap = new HashMap<Character, Integer>();
-        char startChar = 'A';
-        for (int i = 0; i < 26; i++) {
-            charMap.put((char) (startChar + i), i);
-        }
-    }
 
     public int generateKey() {
         SecureRandom secureRandom = new SecureRandom();
@@ -55,56 +12,46 @@ public class CaesarCipher {
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
         }
-        // int keyLength = secureRandom.nextInt(length);
-        // if (keyLength == 0) {
-        //     keyLength = 1;
-        // }
         return secureRandom.nextInt(26 + 1);
     }
 
     public String encrypt(String plainText, int key) {
-        String encryptedText = "";
-        if (key < 0 || key > 25 || plainText.length() <= 0) {
+        StringBuilder encryptedText = new StringBuilder();
+        if (key < 0 || key > 25 || plainText.isBlank()) {
             return null;
         }
-        plainText = plainText.trim();
+        //plainText = plainText.trim();
         plainText = plainText.replaceAll("\\W", "");
-        if (plainText.contains(" ")) {
-            plainText = plainText.replaceAll(" ", "");
-        }
+        plainText = plainText.replaceAll(" ", "");
         plainText = plainText.toUpperCase();
+
         for (int i = 0; i < plainText.length(); i++) {
             char letter = plainText.charAt(i);
-            int lookUp = (charMap.get(letter) + key) % 26;
-            encryptedText += encryptionArr[lookUp];
+            int shifted = (letter - 'A' + key) % 26 + 'A';
+            encryptedText = encryptedText.append((char) shifted);
         }
-        return encryptedText;
+        return encryptedText.toString();
     }
 
     public String decrypt(String cipherText, int key) {
-        String decryptedText = "";
-        if (key < 0 || key > 25) {
+        StringBuilder decryptedText = new StringBuilder();
+        if (key < 0 || key > 25 || cipherText.isBlank()) {
             return null;
         }
-        cipherText = cipherText.trim();
+        //cipherText = cipherText.trim();
         cipherText = cipherText.replaceAll("\\W", "");
-        if (cipherText.contains(" ")) {
-            cipherText = cipherText.replaceAll(" ", "");
-        }
+        cipherText = cipherText.replaceAll(" ", "");
         cipherText = cipherText.toUpperCase();
+
         for (int i = 0; i < cipherText.length(); i++) {
             char letter = cipherText.charAt(i);
-            int lookUp = (charMap.get(letter) - key) % 26;
-            if (lookUp < 0) {
-                lookUp += 26;
-            }
-            decryptedText += encryptionArr[lookUp];
+            int shifted = (letter - 'A' - key + 26) % 26 + 'A';
+            decryptedText.append((char) shifted);
         }
-        return decryptedText;
+        return decryptedText.toString();
     }
-    
+
     public String getName() {
         return NAME;
     }
-
 }
