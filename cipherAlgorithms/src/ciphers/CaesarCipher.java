@@ -28,7 +28,7 @@ public class CaesarCipher {
         for (int i = 0; i < plainText.length(); i++) {
             char letter = plainText.charAt(i);
             int shifted = (letter - 'A' + key) % 26 + 'A';
-            encryptedText = encryptedText.append((char) shifted);
+            encryptedText.append((char) shifted);
         }
         return encryptedText.toString();
     }
