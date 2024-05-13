@@ -2,6 +2,7 @@ package main;
 
 import java.util.Scanner;
 import ciphers.CaesarCipher;
+import ciphers.RowTrans;
 import ciphers.VigenereCipher;
 
 public class Driver {
@@ -39,5 +40,16 @@ public class Driver {
 
         String decryptedtext2 = vigenereCipher.decrypt(ciphertext2, key2);
         System.out.println("Encrypted Text: " + decryptedtext2);
+        RowTrans.setPermutationOrder(); // Set permutation order
+
+        String message = "HELLO WORLD bla bla bla";
+
+            // Encrypt the message
+        String encryptedMessage = RowTrans.encryptMessage(message);
+        System.out.println("Encrypted Message: " + encryptedMessage);
+
+            // Decrypt the message
+        String decryptedMessage = RowTrans.decryptMessage(encryptedMessage);
+        System.out.println("Decrypted Message: " + decryptedMessage);
     }
 }
