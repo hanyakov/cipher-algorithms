@@ -63,6 +63,28 @@ public class Driver {
         String cipherName2 = vigenereCipher.getName();
         System.out.println("Encrypted & decrypted using => " + cipherName2);
 
+        ////////////// Row Trangender
+
+        Scanner scanners = new Scanner(System.in);
+        System.out.print("Enter plaintext: ");
+        String msg = scanners.nextLine();
+        RowTrans.setPermutationOrder();
+
+        // Calling encryption function
+        startTime = System.nanoTime();
+        String cipher = RowTrans.encryptMessage(msg);
+        System.out.println("Encrypted Message: " + cipher);
+        endTime = System.nanoTime();
+        timings.add(endTime - startTime);
+
+        // Calling Decryption function
+        startTime = System.nanoTime();
+        System.out.println("Decrypted Message: " + RowTrans.decryptMessage(cipher));
+        endTime = System.nanoTime();
+        timings.add(endTime - startTime);
+
+        System.out.println("Encrypted & decrypted using => Row Transposition Cipher ");
+
         ////////////////////// DES
 
         try {
