@@ -20,7 +20,7 @@ public class AESTest {
             InvalidKeyException, BadPaddingException, IllegalBlockSizeException {
         SecretKey key = AES.generateAESKey();
 
-        String plaintext = "This is a test message.";
+        String plaintext = "This is a test message or is it?";
 
         String encryptedText = AES.encrypt(plaintext, key);
 

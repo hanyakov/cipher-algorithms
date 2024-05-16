@@ -9,7 +9,7 @@ public class DESTest {
 
     @Test
     public void testEncryptionDecryption() throws Exception {
-        String plaintext = "This is a test message.";
+        String plaintext = "This is a test message or is it?";
         String key = "12345678";
 
         String encryptedText = DES.encrypt(plaintext, key);
