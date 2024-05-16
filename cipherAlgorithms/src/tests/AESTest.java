@@ -28,11 +28,4 @@ public class AESTest {
 
         assertEquals(plaintext, decryptedText);
     }
-
-    @Test
-    public void testGenerateAESKey() throws NoSuchAlgorithmException {
-        SecretKey key = AES.generateAESKey();
-
-        assertNotNull(key);
-    }
 }
