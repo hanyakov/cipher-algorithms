@@ -2,11 +2,14 @@ package main;
 
 import javax.crypto.*;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
+// import java.util.Scanner;
 import ciphers.*;
 
 public class Driver {
@@ -19,11 +22,12 @@ public class Driver {
         CaesarCipher caesarCipher = new CaesarCipher();
         VigenereCipher vigenereCipher = new VigenereCipher();
 
-        Scanner scanner = new Scanner(System.in);
+        // Scanner scanner = new Scanner(System.in);
         int key = caesarCipher.generateKey();
         System.out.println("Generated Key: " + key);
-        System.out.print("Enter plaintext: ");
-        String plaintext1 = scanner.nextLine();
+        // System.out.print("Enter plaintext: ");
+        // String plaintext1 = scanner.nextLine();
+        String plaintext1 = readFile("D:\\duck\\cipher-algorithms\\cipherAlgorithms\\src\\main\\CaesarCipher.txt");
 
         startTime = System.nanoTime();
         String ciphertext1 = caesarCipher.encrypt(plaintext1, key);
@@ -44,9 +48,10 @@ public class Driver {
         String key2 = vigenereCipher.generateKey(3);
         System.out.println("Generated Key: " + key2);
 
-        Scanner scanner2 = new Scanner(System.in);
-        System.out.print("Enter plaintext: ");
-        String plaintext2 = scanner2.nextLine();
+        // Scanner scanner2 = new Scanner(System.in);
+        // System.out.print("Enter plaintext: ");
+        // String plaintext2 = scanner2.nextLine();
+        String plaintext2 = readFile("D:\\duck\\cipher-algorithms\\cipherAlgorithms\\src\\main\\VigenereCipher.txt");
 
         startTime = System.nanoTime();
         String ciphertext2 = vigenereCipher.encrypt(plaintext2, key2);
@@ -65,10 +70,11 @@ public class Driver {
 
         ////////////// Row Trangender
 
-        Scanner scanners = new Scanner(System.in);
-        System.out.print("Enter plaintext: ");
-        String msg = scanners.nextLine();
+        // Scanner scanners = new Scanner(System.in);
+        // System.out.print("Enter plaintext: ");
+        // String msg = scanners.nextLine();
         RowTrans.setPermutationOrder();
+        String msg = readFile("D:\\duck\\cipher-algorithms\\cipherAlgorithms\\src\\main\\RowTrans.txt");
 
         // Calling encryption function
         startTime = System.nanoTime();
@@ -89,9 +95,10 @@ public class Driver {
 
         try {
             String key4 = "01234567"; // 8-byte key
-            Scanner scanner4 = new Scanner(System.in);
-            System.out.print("Enter plaintext: ");
-            String plaintext4 = scanner4.nextLine();
+            // Scanner scanner4 = new Scanner(System.in);
+            // System.out.print("Enter plaintext: ");
+            // String plaintext4 = scanner4.nextLine();
+            String plaintext4 = readFile("D:\\duck\\cipher-algorithms\\cipherAlgorithms\\src\\main\\DES.txt");
 
             System.out.println("Original Message: " + plaintext4);
 
@@ -118,9 +125,10 @@ public class Driver {
         try {
             // Generate AES key
             SecretKey key3 = AES.generateAESKey();
-            Scanner scanner3 = new Scanner(System.in);
-            System.out.print("Enter plaintext: ");
-            String plaintext3 = scanner3.nextLine();
+            // Scanner scanner3 = new Scanner(System.in);
+            // System.out.print("Enter plaintext: ");
+            // String plaintext3 = scanner3.nextLine();
+            String plaintext3 = readFile("D:\\duck\\cipher-algorithms\\cipherAlgorithms\\src\\main\\AES.txt");
             // Original message
 
             System.out.println("Original Message: " + plaintext3);
@@ -150,9 +158,10 @@ public class Driver {
         PlayfairCipher playfair = new PlayfairCipher("KEYWORD");
 
         playfair.displayMatrix();
-        Scanner scanner5 = new Scanner(System.in);
-        System.out.print("Enter plaintext: ");
-        String plaintext5 = scanner5.nextLine();
+        // Scanner scanner5 = new Scanner(System.in);
+        // System.out.print("Enter plaintext: ");
+        // String plaintext5 = scanner5.nextLine();
+        String plaintext5 = readFile("D:\\duck\\cipher-algorithms\\cipherAlgorithms\\src\\main\\Playfair.txt");
         startTime = System.nanoTime();
         String ciphertext5 = playfair.encrypt(plaintext5);
         System.out.println("Encrypted: " + ciphertext5);
@@ -169,4 +178,18 @@ public class Driver {
         System.out.println("Timings (in nanoseconds): " + timings);
     }
 
+    public static String readFile(String fileName) {
+        StringBuilder content = new StringBuilder();
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                content.append(line);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return content.toString();
+    }
 }
