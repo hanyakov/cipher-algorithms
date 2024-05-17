@@ -27,7 +27,7 @@ public class Driver {
         System.out.println("Generated Key: " + key);
         // System.out.print("Enter plaintext: ");
         // String plaintext1 = scanner.nextLine();
-        String plaintext1 = readFile("D:\\duck\\cipher-algorithms\\cipherAlgorithms\\src\\main\\RandomText1.txt");
+        String plaintext1 = readFile("D:\\duck\\cipher-algorithms\\cipherAlgorithms\\src\\main\\RandomText.txt");
 
         startTime = System.nanoTime();
         String ciphertext1 = caesarCipher.encrypt(plaintext1, key);
@@ -54,7 +54,7 @@ public class Driver {
         // Scanner scanner2 = new Scanner(System.in);
         // System.out.print("Enter plaintext: ");
         // String plaintext2 = scanner2.nextLine();
-        String plaintext2 = readFile("D:\\duck\\cipher-algorithms\\cipherAlgorithms\\src\\main\\RandomText2.txt");
+        String plaintext2 = readFile("D:\\duck\\cipher-algorithms\\cipherAlgorithms\\src\\main\\RandomText.txt");
 
         startTime = System.nanoTime();
         String ciphertext2 = vigenereCipher.encrypt(plaintext2, key2);
@@ -81,7 +81,7 @@ public class Driver {
         // System.out.print("Enter plaintext: ");
         // String msg = scanners.nextLine();
         RowTrans.setPermutationOrder();
-        String msg = readFile("D:\\duck\\cipher-algorithms\\cipherAlgorithms\\src\\main\\RandomText3.txt");
+        String msg = readFile("D:\\duck\\cipher-algorithms\\cipherAlgorithms\\src\\main\\RandomText.txt");
 
         // Calling encryption function
         startTime = System.nanoTime();
@@ -109,7 +109,7 @@ public class Driver {
             // Scanner scanner4 = new Scanner(System.in);
             // System.out.print("Enter plaintext: ");
             // String plaintext4 = scanner4.nextLine();
-            String plaintext4 = readFile("D:\\duck\\cipher-algorithms\\cipherAlgorithms\\src\\main\\RandomText4.txt");
+            String plaintext4 = readFile("D:\\duck\\cipher-algorithms\\cipherAlgorithms\\src\\main\\RandomText.txt");
 
             System.out.println("Original Message: " + plaintext4);
 
@@ -142,7 +142,7 @@ public class Driver {
             // Scanner scanner3 = new Scanner(System.in);
             // System.out.print("Enter plaintext: ");
             // String plaintext3 = scanner3.nextLine();
-            String plaintext3 = readFile("D:\\duck\\cipher-algorithms\\cipherAlgorithms\\src\\main\\RandomText5.txt");
+            String plaintext3 = readFile("D:\\duck\\cipher-algorithms\\cipherAlgorithms\\src\\main\\RandomText.txt");
             // Original message
 
             System.out.println("Original Message: " + plaintext3);
@@ -179,7 +179,7 @@ public class Driver {
         // Scanner scanner5 = new Scanner(System.in);
         // System.out.print("Enter plaintext: ");
         // String plaintext5 = scanner5.nextLine();
-        String plaintext5 = readFile("D:\\duck\\cipher-algorithms\\cipherAlgorithms\\src\\main\\RandomText5.txt");
+        String plaintext5 = readFile("D:\\duck\\cipher-algorithms\\cipherAlgorithms\\src\\main\\RandomText.txt");
         startTime = System.nanoTime();
         String ciphertext5 = playfair.encrypt(plaintext5);
         System.out.println("Encrypted: " + ciphertext5);
