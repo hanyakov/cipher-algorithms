@@ -1,4 +1,5 @@
 package ciphers;
+
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 
@@ -20,15 +21,19 @@ public class CaesarCipher {
         if (key < 0 || key > 25 || plainText.isBlank()) {
             return null;
         }
-        //plainText = plainText.trim();
-        plainText = plainText.replaceAll("\\W", "");
-        plainText = plainText.replaceAll(" ", "");
+        // plainText = plainText.trim();
+        // plainText = plainText.replaceAll("\\W", "");
+        // plainText = plainText.replaceAll(" ", "");
         plainText = plainText.toUpperCase();
 
         for (int i = 0; i < plainText.length(); i++) {
             char letter = plainText.charAt(i);
-            int shifted = (letter - 'A' + key) % 26 + 'A';
-            encryptedText.append((char) shifted);
+            if (Character.isLetter(letter)) {
+                int shifted = (letter - 'A' + key) % 26 + 'A';
+                encryptedText.append((char) shifted);
+            } else {
+                encryptedText.append(letter);
+            }
         }
         return encryptedText.toString();
     }
@@ -38,15 +43,19 @@ public class CaesarCipher {
         if (key < 0 || key > 25 || cipherText.isBlank()) {
             return null;
         }
-        //cipherText = cipherText.trim();
-        cipherText = cipherText.replaceAll("\\W", "");
-        cipherText = cipherText.replaceAll(" ", "");
+        // cipherText = cipherText.trim();
+        // cipherText = cipherText.replaceAll("\\W", "");
+        // cipherText = cipherText.replaceAll(" ", "");
         cipherText = cipherText.toUpperCase();
 
         for (int i = 0; i < cipherText.length(); i++) {
             char letter = cipherText.charAt(i);
-            int shifted = (letter - 'A' - key + 26) % 26 + 'A';
-            decryptedText.append((char) shifted);
+            if (Character.isLetter(letter)) {
+                int shifted = (letter - 'A' - key + 26) % 26 + 'A';
+                decryptedText.append((char) shifted);
+            } else {
+                decryptedText.append(letter);
+            }
         }
         return decryptedText.toString();
     }
@@ -54,4 +63,5 @@ public class CaesarCipher {
     public String getName() {
         return NAME;
     }
+
 }
