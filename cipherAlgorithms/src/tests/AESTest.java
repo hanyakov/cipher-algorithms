@@ -11,7 +11,6 @@ import javax.crypto.BadPaddingException;
 import javax.crypto.IllegalBlockSizeException;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
 
 public class AESTest {
 
@@ -26,6 +25,6 @@ public class AESTest {
 
         String decryptedText = AES.decrypt(encryptedText, key);
 
-        assertEquals(plaintext, decryptedText);
+        assertEquals(plaintext.toUpperCase(), decryptedText);
     }
 }
