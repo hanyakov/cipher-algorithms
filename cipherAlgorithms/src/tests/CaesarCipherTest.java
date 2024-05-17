@@ -19,6 +19,16 @@ public class CaesarCipherTest {
     }
 
     @Test
+    public void testEncryptionDecryption() {
+        CaesarCipher cipher = new CaesarCipher();
+        String plainText = "HELLO, WORLD!";
+        int key = 3;
+        String encryptedText = cipher.encrypt(plainText, key);
+        String decryptedText = cipher.decrypt(encryptedText, key);
+        assertEquals(plainText, decryptedText);
+    }
+
+    @Test
     public void testDecryption() {
         CaesarCipher cipher = new CaesarCipher();
         String cipherText = "KHOOR";
