@@ -1,9 +1,9 @@
 package main;
 
 import javax.crypto.*;
-
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
@@ -27,7 +27,7 @@ public class Driver {
         System.out.println("Generated Key: " + key);
         // System.out.print("Enter plaintext: ");
         // String plaintext1 = scanner.nextLine();
-        String plaintext1 = readFile("D:\\duck\\cipher-algorithms\\cipherAlgorithms\\src\\main\\CaesarCipher.txt");
+        String plaintext1 = readFile("D:\\duck\\cipher-algorithms\\cipherAlgorithms\\src\\main\\RandomText1.txt");
 
         startTime = System.nanoTime();
         String ciphertext1 = caesarCipher.encrypt(plaintext1, key);
@@ -44,6 +44,9 @@ public class Driver {
         String cipherName = caesarCipher.getName();
         System.out.println("Encrypted & decrypted using => " + cipherName);
 
+        // write to a file
+        writeToFile("D:\\duck\\cipher-algorithms\\cipherAlgorithms\\src\\main\\CaesarCipherOutput.txt", decryptedText1);
+
         //////////////// vigenere testing
         String key2 = vigenereCipher.generateKey(3);
         System.out.println("Generated Key: " + key2);
@@ -51,7 +54,7 @@ public class Driver {
         // Scanner scanner2 = new Scanner(System.in);
         // System.out.print("Enter plaintext: ");
         // String plaintext2 = scanner2.nextLine();
-        String plaintext2 = readFile("D:\\duck\\cipher-algorithms\\cipherAlgorithms\\src\\main\\VigenereCipher.txt");
+        String plaintext2 = readFile("D:\\duck\\cipher-algorithms\\cipherAlgorithms\\src\\main\\RandomText2.txt");
 
         startTime = System.nanoTime();
         String ciphertext2 = vigenereCipher.encrypt(plaintext2, key2);
@@ -68,13 +71,17 @@ public class Driver {
         String cipherName2 = vigenereCipher.getName();
         System.out.println("Encrypted & decrypted using => " + cipherName2);
 
-        ////////////// Row Trangender
+        // write to a file
+        writeToFile("D:\\duck\\cipher-algorithms\\cipherAlgorithms\\src\\main\\VigenereCipherOutput.txt",
+                decryptedtext2);
+
+        ////////////// Row Transposition
 
         // Scanner scanners = new Scanner(System.in);
         // System.out.print("Enter plaintext: ");
         // String msg = scanners.nextLine();
         RowTrans.setPermutationOrder();
-        String msg = readFile("D:\\duck\\cipher-algorithms\\cipherAlgorithms\\src\\main\\RowTrans.txt");
+        String msg = readFile("D:\\duck\\cipher-algorithms\\cipherAlgorithms\\src\\main\\RandomText3.txt");
 
         // Calling encryption function
         startTime = System.nanoTime();
@@ -85,11 +92,15 @@ public class Driver {
 
         // Calling Decryption function
         startTime = System.nanoTime();
-        System.out.println("Decrypted Message: " + RowTrans.decryptMessage(cipher));
+        String decryptedMessage = RowTrans.decryptMessage(cipher);
+        System.out.println("Decrypted Message: " + decryptedMessage);
         endTime = System.nanoTime();
         timings.add(endTime - startTime);
 
-        System.out.println("Encrypted & decrypted using => Row Transposition Cipher ");
+        System.out.println("Encrypted & decrypted using => Row Transposition Cipher");
+
+        // write to a file
+        writeToFile("D:\\duck\\cipher-algorithms\\cipherAlgorithms\\src\\main\\RowTransOutput.txt", decryptedMessage);
 
         ////////////////////// DES
 
@@ -98,7 +109,7 @@ public class Driver {
             // Scanner scanner4 = new Scanner(System.in);
             // System.out.print("Enter plaintext: ");
             // String plaintext4 = scanner4.nextLine();
-            String plaintext4 = readFile("D:\\duck\\cipher-algorithms\\cipherAlgorithms\\src\\main\\DES.txt");
+            String plaintext4 = readFile("D:\\duck\\cipher-algorithms\\cipherAlgorithms\\src\\main\\RandomText4.txt");
 
             System.out.println("Original Message: " + plaintext4);
 
@@ -115,7 +126,10 @@ public class Driver {
             System.out.println("Decrypted Message: " + decryptedtext4);
             endTime = System.nanoTime();
             timings.add(endTime - startTime);
-            System.out.println("Encrypted & decrypted using => DES cipher ");
+            System.out.println("Encrypted & decrypted using => DES cipher");
+
+            // write to a file
+            writeToFile("D:\\duck\\cipher-algorithms\\cipherAlgorithms\\src\\main\\DESOutput.txt", decryptedtext4);
 
         } catch (Exception e) {
             System.out.println("Error: " + e.getMessage());
@@ -128,7 +142,7 @@ public class Driver {
             // Scanner scanner3 = new Scanner(System.in);
             // System.out.print("Enter plaintext: ");
             // String plaintext3 = scanner3.nextLine();
-            String plaintext3 = readFile("D:\\duck\\cipher-algorithms\\cipherAlgorithms\\src\\main\\AES.txt");
+            String plaintext3 = readFile("D:\\duck\\cipher-algorithms\\cipherAlgorithms\\src\\main\\RandomText5.txt");
             // Original message
 
             System.out.println("Original Message: " + plaintext3);
@@ -147,7 +161,11 @@ public class Driver {
             endTime = System.nanoTime();
             timings.add(endTime - startTime);
 
-            System.out.println("Encrypted & decrypted using => AES cipher ");
+            System.out.println("Encrypted & decrypted using => AES cipher");
+
+            // write to a file
+            writeToFile("D:\\duck\\cipher-algorithms\\cipherAlgorithms\\src\\main\\AESOutput.txt", decryptedtext3);
+
         } catch (NoSuchAlgorithmException | NoSuchPaddingException | InvalidKeyException | BadPaddingException
                 | IllegalBlockSizeException e) {
             e.printStackTrace();
@@ -161,7 +179,7 @@ public class Driver {
         // Scanner scanner5 = new Scanner(System.in);
         // System.out.print("Enter plaintext: ");
         // String plaintext5 = scanner5.nextLine();
-        String plaintext5 = readFile("D:\\duck\\cipher-algorithms\\cipherAlgorithms\\src\\main\\Playfair.txt");
+        String plaintext5 = readFile("D:\\duck\\cipher-algorithms\\cipherAlgorithms\\src\\main\\RandomText5.txt");
         startTime = System.nanoTime();
         String ciphertext5 = playfair.encrypt(plaintext5);
         System.out.println("Encrypted: " + ciphertext5);
@@ -173,7 +191,10 @@ public class Driver {
         System.out.println("Decrypted: " + decryptedtext5);
         endTime = System.nanoTime();
         timings.add(endTime - startTime);
-        System.out.println("Encrypted & decrypted using => PlayFair cipher ");
+        System.out.println("Encrypted & decrypted using => Playfair cipher");
+
+        // write to a file
+        writeToFile("D:\\duck\\cipher-algorithms\\cipherAlgorithms\\src\\main\\PlayfairOutput.txt", decryptedtext5);
 
         System.out.println("Timings (in nanoseconds): " + timings);
     }
@@ -191,5 +212,15 @@ public class Driver {
         }
 
         return content.toString();
+    }
+
+    public static void writeToFile(String fileName, String content) {
+        try {
+            FileWriter myWriter = new FileWriter(fileName);
+            myWriter.write(content);
+            myWriter.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
