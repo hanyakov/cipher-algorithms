@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 // import java.util.Scanner;
 import ciphers.*;
@@ -15,7 +16,7 @@ import ciphers.*;
 public class Driver {
 
     public static void main(String[] args) throws Exception {
-        List<Long> timings = new ArrayList<>();
+        List<CipherTiming> timings = new ArrayList<>();
         long startTime = System.nanoTime();
         long endTime = System.nanoTime();
 
@@ -33,13 +34,14 @@ public class Driver {
         String ciphertext1 = caesarCipher.encrypt(plaintext1, key);
         System.out.println("Encrypted Text: " + ciphertext1);
         endTime = System.nanoTime();
-        timings.add(endTime - startTime);
+        timings.add(new CipherTiming(caesarCipher.getName() + " Encryption", endTime
+                - startTime));
 
         startTime = System.nanoTime();
         String decryptedText1 = caesarCipher.decrypt(ciphertext1, key);
         System.out.println("Decrypted Text: " + decryptedText1);
         endTime = System.nanoTime();
-        timings.add(endTime - startTime);
+        timings.add(new CipherTiming(caesarCipher.getName() + " Decryption", endTime - startTime));
 
         String cipherName = caesarCipher.getName();
         System.out.println("Encrypted & decrypted using => " + cipherName);
@@ -60,13 +62,13 @@ public class Driver {
         String ciphertext2 = vigenereCipher.encrypt(plaintext2, key2);
         System.out.println("Encrypted Text: " + ciphertext2);
         endTime = System.nanoTime();
-        timings.add(endTime - startTime);
+        timings.add(new CipherTiming(vigenereCipher.getName() + " Encryption", endTime - startTime));
 
         startTime = System.nanoTime();
         String decryptedtext2 = vigenereCipher.decrypt(ciphertext2, key2);
         System.out.println("Decrypted Text: " + decryptedtext2);
         endTime = System.nanoTime();
-        timings.add(endTime - startTime);
+        timings.add(new CipherTiming(vigenereCipher.getName() + " Decryption", endTime - startTime));
 
         String cipherName2 = vigenereCipher.getName();
         System.out.println("Encrypted & decrypted using => " + cipherName2);
@@ -88,14 +90,14 @@ public class Driver {
         String cipher = RowTrans.encryptMessage(msg);
         System.out.println("Encrypted Message: " + cipher);
         endTime = System.nanoTime();
-        timings.add(endTime - startTime);
+        timings.add(new CipherTiming("Row Transposition Encryption", endTime - startTime));
 
         // Calling Decryption function
         startTime = System.nanoTime();
         String decryptedMessage = RowTrans.decryptMessage(cipher);
         System.out.println("Decrypted Message: " + decryptedMessage);
         endTime = System.nanoTime();
-        timings.add(endTime - startTime);
+        timings.add(new CipherTiming("Row Transposition Decryption", endTime - startTime));
 
         System.out.println("Encrypted & decrypted using => Row Transposition Cipher");
 
@@ -118,14 +120,14 @@ public class Driver {
             String ciphertext4 = DES.encrypt(plaintext4, key4);
             System.out.println("Encrypted Message: " + ciphertext4);
             endTime = System.nanoTime();
-            timings.add(endTime - startTime);
+            timings.add(new CipherTiming("DES Encryption", endTime - startTime));
 
             // Decrypt the message
             startTime = System.nanoTime();
             String decryptedtext4 = DES.decrypt(ciphertext4, key4);
             System.out.println("Decrypted Message: " + decryptedtext4);
             endTime = System.nanoTime();
-            timings.add(endTime - startTime);
+            timings.add(new CipherTiming("DES Decryption", endTime - startTime));
             System.out.println("Encrypted & decrypted using => DES cipher");
 
             // write to a file
@@ -152,14 +154,14 @@ public class Driver {
             String ciphertext3 = AES.encrypt(plaintext3, key3);
             System.out.println("Encrypted Message: " + ciphertext3);
             endTime = System.nanoTime();
-            timings.add(endTime - startTime);
+            timings.add(new CipherTiming("AES Encryption", endTime - startTime));
 
             // Decrypt the message
             startTime = System.nanoTime();
             String decryptedtext3 = AES.decrypt(ciphertext3, key3);
             System.out.println("Decrypted Message: " + decryptedtext3);
             endTime = System.nanoTime();
-            timings.add(endTime - startTime);
+            timings.add(new CipherTiming("AES Decryption", endTime - startTime));
 
             System.out.println("Encrypted & decrypted using => AES cipher");
 
@@ -184,19 +186,36 @@ public class Driver {
         String ciphertext5 = playfair.encrypt(plaintext5);
         System.out.println("Encrypted: " + ciphertext5);
         endTime = System.nanoTime();
-        timings.add(endTime - startTime);
+        timings.add(new CipherTiming("Playfair Encryption", endTime - startTime));
 
         startTime = System.nanoTime();
         String decryptedtext5 = playfair.decrypt(ciphertext5);
         System.out.println("Decrypted: " + decryptedtext5);
         endTime = System.nanoTime();
-        timings.add(endTime - startTime);
+        timings.add(new CipherTiming("Playfair Decryption", endTime - startTime));
         System.out.println("Encrypted & decrypted using => Playfair cipher");
 
         // write to a file
         writeToFile("D:\\duck\\cipher-algorithms\\cipherAlgorithms\\src\\main\\PlayfairOutput.txt", decryptedtext5);
 
-        System.out.println("Timings (in nanoseconds): " + timings);
+        System.out.println("Timings NOT SORTED (in nanoseconds): ");
+        for (int i = 0; i < timings.size(); i++) {
+            if (i > 0) {
+                if (i % 2 == 0) {
+                    System.out.println();
+                } else {
+                    System.out.print(", ");
+                }
+            }
+            System.out.print(timings.get(i));
+        }
+
+        System.out.println("\n\nTimings SORTED (in nanoseconds):\n");
+        Collections.sort(timings);
+
+        for (int i = 0; i < timings.size(); i++) {
+            System.out.println(timings.get(i));
+        }
     }
 
     public static String readFile(String fileName) {

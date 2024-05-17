@@ -98,4 +98,9 @@ public class RowTrans {
 
         return msg.toString();
     }
+
+    public String getName() {
+        return "Row Transposition";
+    }
+
 }
