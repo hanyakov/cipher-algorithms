@@ -13,7 +13,7 @@ public class RowTrans {
             keyMap.put(key.charAt(i), i);
         }
     }
-    
+
     public static String encryptMessage(String msg) {
         int row, col;
         StringBuilder cipher = new StringBuilder();
@@ -26,7 +26,7 @@ public class RowTrans {
 
         char[][] matrix = new char[row][col];
         for (int i = 0, k = 0; i < row; i++) {
-            for (int j = 0; j < col; ) {
+            for (int j = 0; j < col;) {
                 if (k < msg.length()) {
                     char ch = msg.charAt(k);
                     if (Character.isLetter(ch) || ch == ' ') {
@@ -34,7 +34,7 @@ public class RowTrans {
                         j++;
                     }
                     k++;
-                                    } else {
+                } else {
                     /* Add padding character '_' */
                     matrix[i][j] = '_';
                     j++;
@@ -55,7 +55,7 @@ public class RowTrans {
 
         return cipher.toString();
     }
-    
+
     public static String decryptMessage(String cipher) {
         /* Calculate the number of columns for the cipher matrix */
         int col = key.length();
